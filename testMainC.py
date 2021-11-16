@@ -15,7 +15,7 @@ locmodel = tf.keras.models.load_model("locationC")
 capmodel = tf.keras.models.load_model("captchaC")
 
 
-x_trainDir = "trainimg"
+x_trainDir = "testimg"
 
 total = 0
 err = 0
