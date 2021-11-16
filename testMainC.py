@@ -8,7 +8,6 @@ from statistics import mean
 
 startx = 10
 length = 130
-stride = 15
 width = 18
 captchaWidth = 18
 locmodel = tf.keras.models.load_model("locationC")
@@ -29,23 +28,16 @@ for file in os.listdir(x_trainDir):
     # 반전
     img = cv2.bitwise_not(img) / 255.0
 
-    # f = open("label" + "/" + file.split(".")[0] + ".csv", "r")
-    # testlb = list(map(int, f.read().split(",")))
-    # f.close()
-
-    x_test = np.zeros((int(length/stride) + 1 , 50, width), dtype=np.float)
-    x_testind = 0
-    for j in range(0,length,stride):
-        x_test[x_testind] = img[:, startx + j:startx + j + width]
-        x_testind += 1
-
+    x_test = np.zeros((length, 50, width), dtype=np.float)
+    for j in range(length):
+        x_test[j] = img[:, startx + j:startx + j + width]
     pd = list(locmodel.predict(x_test))
     ls = []
     for p in range(len(pd)):
         if int(pd[p][0]) > -1 and int(pd[p][0]) < width:
-            ls.append(startx + (p * stride) + int(pd[p][0]))
+            ls.append(startx + p + int(pd[p][0]))
         if int(pd[p][1]) > -1 and int(pd[p][1]) < width:
-            ls.append(startx + (p * stride)+ int(pd[p][1]))
+            ls.append(startx + p + int(pd[p][1]))
 
 
     # print(ls)
