@@ -18,8 +18,8 @@ from django.urls import path, include
 from gov24 import views
 
 urlpatterns = [
-    path('AnalysisResult', views.AnalysisResult),
-    path('main', views.Main),
+    path('main', views.AnalysisResult),
+    # path('main', views.Main),
     # path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

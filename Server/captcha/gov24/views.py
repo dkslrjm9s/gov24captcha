@@ -29,17 +29,13 @@ kmodel = KMeans(6)
 # Create your views here.
 
 
-@csrf_exempt
-def Main(request):
-    return render(request, 'gov24/main.html')
 
 @csrf_exempt
 def AnalysisResult(request):
     if request.method == 'GET':
+        return render(request, 'gov24/main.html')
 
-        if os.path.isfile("./gov24/curImg/img.png") :
-            os.remove("./gov24/curImg/img.png")
-
+    if request.method == 'POST':
 
         x_test = np.zeros((length, 50, width), dtype=np.float)
         ls = []
@@ -52,7 +48,6 @@ def AnalysisResult(request):
 
         img = np.array(img)
         noprocess = img
-        cv2.imwrite("./gov24/curImg/img.png", noprocess)
 
         start = time.time()
         ret, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY)
